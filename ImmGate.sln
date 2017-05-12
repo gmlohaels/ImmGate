@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmGate.Base", "ImmGate.Base\ImmGate.Base.csproj", "{238E3C93-28B2-4588-BB99-E09ACE0B78EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmGate.Network", "ImmGate.Network\ImmGate.Network.csproj", "{E15319E4-D69D-4CAE-AB70-D15E74CD31C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmGate.Base.Tests", "ImmGate.Base.Tests\ImmGate.Base.Tests.csproj", "{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{238E3C93-28B2-4588-BB99-E09ACE0B78EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{238E3C93-28B2-4588-BB99-E09ACE0B78EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{238E3C93-28B2-4588-BB99-E09ACE0B78EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15319E4-D69D-4CAE-AB70-D15E74CD31C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15319E4-D69D-4CAE-AB70-D15E74CD31C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15319E4-D69D-4CAE-AB70-D15E74CD31C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15319E4-D69D-4CAE-AB70-D15E74CD31C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

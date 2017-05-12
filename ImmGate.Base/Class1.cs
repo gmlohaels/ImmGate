@@ -1,4 +1,0 @@
-﻿namespace ImmGate.Base
-{
-  
-}
