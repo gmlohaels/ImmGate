@@ -19,6 +19,13 @@ namespace ImmGate.Base.Network.Tlv
 
         private readonly Dictionary<string, Type> cache = new Dictionary<string, Type>();
 
+        public DefaultNetworkPacketMaintainer(IObjectSerializer<NetworkMessageBase> serializer, Assembly assemblyWithNetworkMessages)
+        {
+            this.serializer = serializer;
+            assembliesToLookup = new List<Assembly> { assemblyWithNetworkMessages };
+
+        }
+
 
         public DefaultNetworkPacketMaintainer(IObjectSerializer<NetworkMessageBase> serializer, IList<Assembly> assembliesToLookup)
         {
