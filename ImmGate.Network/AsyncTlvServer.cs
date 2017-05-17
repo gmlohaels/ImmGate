@@ -42,7 +42,7 @@ namespace ImmGate.Network
             OnClientConnected?.Invoke(this, e);
         }
 
-        protected Action<AsyncTlvServer<T>, Socket> AcceptClient;
+        protected Func<AsyncTlvServer<T>, Socket, T> AcceptClient;
 
 
 
@@ -81,7 +81,7 @@ namespace ImmGate.Network
             listener = TcpListener.Create(port);
         }
 
-        public AsyncTlvServer(int port, Action<AsyncTlvServer<T>, Socket> acceptClient) : this(port)
+        public AsyncTlvServer(int port, Func<AsyncTlvServer<T>, Socket, T> acceptClient) : this(port)
         {
             AcceptClient = acceptClient;
         }
@@ -144,7 +144,9 @@ namespace ImmGate.Network
 
                     var s = await listener.AcceptTcpClientAsync();
 
-                    AcceptClient(this, s.Client);
+                    var client = AcceptClient(this, s.Client);
+
+                    ProcessClient(client);
 
                 }
                 catch (Exception e)

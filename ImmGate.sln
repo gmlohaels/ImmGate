@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmGate.Network", "ImmGate.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmGate.Base.Tests", "ImmGate.Base.Tests\ImmGate.Base.Tests.csproj", "{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2B193F12-CEF9-498B-915E-5423120A567F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F9CD5DE-6890-4D63-A77C-4DC1F1B0D1F6} = {2B193F12-CEF9-498B-915E-5423120A567F}
 	EndGlobalSection
 EndGlobal
