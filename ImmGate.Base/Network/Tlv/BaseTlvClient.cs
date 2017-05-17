@@ -11,11 +11,10 @@ namespace ImmGate.Base.Network.Tlv
 
     public abstract class BaseTlvClient
     {
-        private int MaxPacketSize = 1024 * 1024 * 2;
+
+        protected virtual int MaxPacketSize { get; } = 1024 * 1024 * 2;
 
         private TcpClient tcpClient;
-
-
         private byte[] ReadComplete(int bytesRequired)
         {
 

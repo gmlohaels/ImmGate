@@ -5,6 +5,18 @@ using ImmGate.Base.Serialization.ImmGate.Base.Serialization;
 
 namespace ImmGate.Base.Network.Tlv
 {
+
+    public abstract class MessageOrientedTlvClient : MessageOrientedTlvClient<NetworkMessageBase>
+    {
+        protected MessageOrientedTlvClient(INetworkPacketMaintainer<NetworkMessageBase> packetMaintainer) : base(packetMaintainer)
+        {
+        }
+
+        protected MessageOrientedTlvClient(Socket sock, INetworkPacketMaintainer<NetworkMessageBase> packetMaintainer) : base(sock, packetMaintainer)
+        {
+        }
+    }
+
     public class MessageOrientedTlvClient<T> : BaseTlvClient where T : class
     {
 

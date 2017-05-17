@@ -11,7 +11,6 @@ namespace ImmGate.Base.Network.Tlv
     /// <summary>
     /// This Packet  Maintainer use TypeName field to determine type 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public class DefaultNetworkPacketMaintainer : INetworkPacketMaintainer<NetworkMessageBase>
     {
         private readonly IObjectSerializer<NetworkMessageBase> serializer;
@@ -23,6 +22,15 @@ namespace ImmGate.Base.Network.Tlv
         {
             this.serializer = serializer;
             assembliesToLookup = new List<Assembly> { assemblyWithNetworkMessages };
+
+        }
+
+
+        public DefaultNetworkPacketMaintainer(IObjectSerializer<NetworkMessageBase> serializer,
+            Type basicTypeForAssembly)
+        {
+            this.serializer = serializer;
+            assembliesToLookup = new List<Assembly>() { Assembly.GetAssembly(basicTypeForAssembly) };
 
         }
 
