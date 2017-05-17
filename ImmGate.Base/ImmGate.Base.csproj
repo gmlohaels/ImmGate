@@ -36,6 +36,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\Tlv\DefaultNetworkPacketMaintainer.cs" />
+    <Compile Include="Network\Tlv\INetworkPacketMaintainer.cs" />
+    <Compile Include="Network\Tlv\NetworkMessageBase.cs" />
+    <Compile Include="Exceptions\TypeNotFoundException.cs" />
     <Compile Include="Patterns\Memento\IComponentSnapshot.cs" />
     <Compile Include="Events\ImmGateEventHandler.cs" />
     <Compile Include="Expressions\ExpressionValue.cs" />
@@ -68,7 +72,9 @@
     <Compile Include="References\ReferenceCounter.cs" />
     <Compile Include="Reflection\Reflection.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Serialization\IDeserializer.cs" />
     <Compile Include="Serialization\IObjectSerializer.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,4 @@
 using System.Net.Sockets;
-using ImmGate.Base.Serialization.ImmGate.Base.Serialization;
 
 namespace ImmGate.Base.Network.Tlv
 {
@@ -15,15 +14,7 @@ namespace ImmGate.Base.Network.Tlv
             IsAuthorized = authorized;
         }
 
-        protected AttributeOrientedTlvClient(Socket socket, IObjectSerializer serializer,
-            IPacketTypeDeterminer typeDeterminer) : base(socket, serializer, typeDeterminer)
-        {
-        }
 
-        protected AttributeOrientedTlvClient(IObjectSerializer serializer, IPacketTypeDeterminer typeDeterminer)
-            : base(serializer, typeDeterminer)
-        {
-        }
 
         protected virtual void OnNotAuthorized()
         {
@@ -70,6 +61,14 @@ namespace ImmGate.Base.Network.Tlv
 
 
 
+        }
+
+        protected AttributeOrientedTlvClient(INetworkPacketMaintainer<T> packetMaintainer) : base(packetMaintainer)
+        {
+        }
+
+        protected AttributeOrientedTlvClient(Socket sock, INetworkPacketMaintainer<T> packetMaintainer) : base(sock, packetMaintainer)
+        {
         }
     }
 }

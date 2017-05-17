@@ -8,4 +8,7 @@ namespace ImmGate.Base.Network
         Type GetDotNetTypeFrom(NetworkTlvPacket packet);
     }
 
+
+
+
 }

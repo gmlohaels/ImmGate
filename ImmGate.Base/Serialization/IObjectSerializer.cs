@@ -1,15 +1,21 @@
-﻿using System;
-
-namespace ImmGate.Base.Serialization
+﻿namespace ImmGate.Base.Serialization
 {
     namespace ImmGate.Base.Serialization
     {
-        public interface IObjectSerializer
+        public interface IObjectSerializer : IDeserializer, ISerializer
         {
-            object DeserializePacket(byte[] buffer, Type type);
-            byte[] SerializePacket<T>(T packet);
+
+
 
         }
+
+
+        public interface IObjectSerializer<T> : IDeserializer<T>, ISerializer<T>
+        {
+
+        }
+
+
     }
 
 }

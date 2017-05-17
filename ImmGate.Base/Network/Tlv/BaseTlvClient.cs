@@ -41,7 +41,7 @@ namespace ImmGate.Base.Network.Tlv
         delegate void WriteDelegate(byte[] buffer, int offset, int count);
         public event ImmGateEventHandler OnConnected;
         public event ImmGateEventHandler OnDisconnected;
-
+        public event ImmGateEventHandler<Exception> OnException;
 
         public bool IsOnline => tcpClient?.Client?.Connected != null && tcpClient.Client.Connected;
 
@@ -86,7 +86,7 @@ namespace ImmGate.Base.Network.Tlv
         }
 
 
-        protected void Connect(string hostName, int port)
+        public void Connect(string hostName, int port)
         {
 
 
@@ -123,7 +123,7 @@ namespace ImmGate.Base.Network.Tlv
                 tcpClient.Close();
             tcpClient = null;
             DoOnDisconnected();
-            
+
         }
 
         protected void SendTlvPacket(byte[] packet)
@@ -205,5 +205,9 @@ namespace ImmGate.Base.Network.Tlv
         }
 
 
+        protected virtual void DoOnException(Exception e)
+        {
+            OnException?.Invoke(this, e);
+        }
     }
 }

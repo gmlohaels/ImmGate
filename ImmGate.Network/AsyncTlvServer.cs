@@ -91,7 +91,7 @@ namespace ImmGate.Network
 
 
 
-            Task.Run(() =>
+            Task.Factory.StartNew(() =>
             {
                 try
                 {
@@ -131,7 +131,7 @@ namespace ImmGate.Network
                 {
                     DisconnectClient(context);
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
 

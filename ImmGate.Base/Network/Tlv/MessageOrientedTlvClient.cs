@@ -8,17 +8,25 @@ namespace ImmGate.Base.Network.Tlv
     public class MessageOrientedTlvClient<T> : BaseTlvClient where T : class
     {
 
-        protected readonly IObjectSerializer Serializer;
+        protected readonly IObjectSerializer<T> Serializer;
         protected readonly IPacketTypeDeterminer TypeDeterminer;
 
         public string ReflectionPrefix = "OnTlv";
 
 
-        public MessageOrientedTlvClient(Socket socket, IObjectSerializer serializer, IPacketTypeDeterminer typeDeterminer) : base(socket)
+        public MessageOrientedTlvClient(INetworkPacketMaintainer<T> packetMaintainer)
         {
-            TypeDeterminer = typeDeterminer;
-            Serializer = serializer;
+            Serializer = packetMaintainer;
+            TypeDeterminer = packetMaintainer;
         }
+
+
+        public MessageOrientedTlvClient(Socket sock, INetworkPacketMaintainer<T> packetMaintainer) : base(sock)
+        {
+            Serializer = packetMaintainer;
+            TypeDeterminer = packetMaintainer;
+        }
+
 
         public virtual IAsyncResult SendMessageAsync(T message)
         {
@@ -33,11 +41,6 @@ namespace ImmGate.Base.Network.Tlv
         }
 
 
-        public MessageOrientedTlvClient(IObjectSerializer serializer, IPacketTypeDeterminer typeDeterminer)
-        {
-            Serializer = serializer;
-            TypeDeterminer = typeDeterminer;
-        }
 
 
         protected override void OnTlvPacketReceived(NetworkTlvPacket packet)
