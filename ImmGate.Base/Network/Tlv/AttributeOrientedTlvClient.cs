@@ -2,7 +2,7 @@ using System.Net.Sockets;
 
 namespace ImmGate.Base.Network.Tlv
 {
-    public abstract class AttributeOrientedTlvClient<T> : MessageOrientedTlvClient<T> where T : class, new()
+    public abstract class AttributeOrientedTlvClient<T> : MessageOrientedTlvClient<T> where T : class
     {
 
 

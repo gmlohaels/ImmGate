@@ -12,15 +12,15 @@ namespace ImmGate.Base.Network.Tlv
     /// This Packet  Maintainer use TypeName field to determine type 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DefaultNetworkPacketMaintainer<T> : INetworkPacketMaintainer<T> where T : NetworkMessageBase
+    public class DefaultNetworkPacketMaintainer : INetworkPacketMaintainer<NetworkMessageBase>
     {
-        private readonly IObjectSerializer serializer;
+        private readonly IObjectSerializer<NetworkMessageBase> serializer;
         private readonly IList<Assembly> assembliesToLookup;
 
         private readonly Dictionary<string, Type> cache = new Dictionary<string, Type>();
 
 
-        public DefaultNetworkPacketMaintainer(IObjectSerializer serializer, IList<Assembly> assembliesToLookup)
+        public DefaultNetworkPacketMaintainer(IObjectSerializer<NetworkMessageBase> serializer, IList<Assembly> assembliesToLookup)
         {
             this.serializer = serializer;
             this.assembliesToLookup = assembliesToLookup;
@@ -29,7 +29,7 @@ namespace ImmGate.Base.Network.Tlv
 
         public Type GetDotNetTypeFrom(NetworkTlvPacket packet)
         {
-            var basicMessage = (T)serializer.DeserializePacket(packet.Value, typeof(T));
+            var basicMessage = serializer.DeserializePacket(packet.Value, typeof(NetworkMessageBase));
 
             if (cache.ContainsKey(basicMessage.TypeName))
                 return cache[basicMessage.TypeName];
@@ -46,12 +46,12 @@ namespace ImmGate.Base.Network.Tlv
             throw new TypeNotFoundException("Type not found: " + basicMessage.TypeName);
         }
 
-        public T DeserializePacket(byte[] buffer, Type type)
+        public NetworkMessageBase DeserializePacket(byte[] buffer, Type type)
         {
-            return (T)serializer.DeserializePacket(buffer, type);
+            return serializer.DeserializePacket(buffer, type);
         }
 
-        public byte[] SerializePacket(T packet)
+        public byte[] SerializePacket(NetworkMessageBase packet)
         {
             return serializer.SerializePacket(packet);
         }
