@@ -50,9 +50,9 @@
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
     <Compile Include="Extensions\FuncEqualityComparer.cs" />
-    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\MarshalHelper.cs" />
-    <Compile Include="Extensions\RandomExtensions.cs" />
+    <Compile Include="Extensions\ImmgateRandom.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ImmgateDebugger.cs" />
     <Compile Include="Network\Extensions\SocketExtensions.cs" />

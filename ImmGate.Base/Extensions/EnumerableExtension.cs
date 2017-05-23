@@ -75,7 +75,8 @@ namespace ImmGate.Base.Extensions
 
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
         {
-            return source.OrderBy(x => Guid.NewGuid());
+            // return source.OrderBy(x => Guid.NewGuid());
+            return source.OrderBy(x => ImmgateRandom.GetNext());
         }
     }
 }

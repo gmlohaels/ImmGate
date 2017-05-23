@@ -7,11 +7,29 @@ namespace ImmGate.Base.Extensions
 {
     public static class EnumExtensions
     {
-        public static T RandomValue<T>(this T enumeratedType) where T : struct
+
+
+        private static Random GetRandom(int seed = 0)
+        {
+            if (seed == 0)
+                seed = Environment.TickCount;
+            return new Random(seed);
+        }
+
+        public static T RandomValue<T>(this T enumeratedType, int seed = 0) where T : struct
         {
             var v = Enum.GetValues(typeof(T));
-            return (T)v.GetValue(new Random().Next(v.Length));
+            return (T)v.GetValue(GetRandom(seed).Next(v.Length));
         }
+
+
+        public static T RandomValue<T>(this T enumeratedType, IEnumerable<string> allowed, int seed = 0) where T : struct
+        {
+            var v = Enum.GetValues(typeof(T));
+            var arr = v.Cast<T>().Where(x => allowed.Contains(x.ToString())).ToArray();
+            return (T)arr.GetValue(GetRandom(seed).Next(arr.Length));
+        }
+
 
 
         public static bool ContainExactFlagSet(this Enum obj, Enum flags)
