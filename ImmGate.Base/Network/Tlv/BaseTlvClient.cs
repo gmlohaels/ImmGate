@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Remoting.Messaging;
 using ImmGate.Base.Events;
@@ -8,16 +9,14 @@ using ImmGate.Base.Network.Extensions;
 
 namespace ImmGate.Base.Network.Tlv
 {
-
     public abstract class BaseTlvClient
     {
-
         protected virtual int MaxPacketSize { get; } = 1024 * 1024 * 2;
 
         private TcpClient tcpClient;
+
         private byte[] ReadComplete(int bytesRequired)
         {
-
             var resultBuffer = new byte[bytesRequired];
             int currentPosition = 0;
 
@@ -38,6 +37,7 @@ namespace ImmGate.Base.Network.Tlv
         }
 
         delegate void WriteDelegate(byte[] buffer, int offset, int count);
+
         public event ImmGateEventHandler OnConnected;
         public event ImmGateEventHandler OnDisconnected;
         public event ImmGateEventHandler<Exception> OnException;
@@ -46,12 +46,10 @@ namespace ImmGate.Base.Network.Tlv
 
         protected IAsyncResult SendTlvPacketAsync(byte[] packet)
         {
-
             var tlvPacket = NetworkTlvPacket.TlvPacketFrom(packet);
 
             try
             {
-
                 var networkStream = tcpClient.GetStream();
 
                 WriteDelegate write = networkStream.Write;
@@ -65,43 +63,40 @@ namespace ImmGate.Base.Network.Tlv
             }
 
             return null;
-
         }
 
         private void WriteCallback(IAsyncResult ar)
         {
             try
             {
-                AsyncResult result = (AsyncResult)ar;
-                WriteDelegate caller = (WriteDelegate)result.AsyncDelegate;
+                AsyncResult result = (AsyncResult) ar;
+                WriteDelegate caller = (WriteDelegate) result.AsyncDelegate;
                 caller.EndInvoke(ar);
             }
             catch (Exception)
             {
                 Close();
             }
-
-
         }
 
-
-        public void Connect(string hostName, int port)
+        public void Connect(IPEndPoint connectTo)
         {
-
-
             try
             {
                 tcpClient = GetNewTcpSocket(SocketSettings.DefaultHigh);
-                tcpClient.Connect(hostName, port);
+                tcpClient.Connect(connectTo);
             }
             catch (Exception)
             {
                 DoOnDisconnected();
                 throw;
             }
-
-
             DoOnConnected();
+        }
+
+        public void Connect(string hostName, int port)
+        {
+            Connect(new IPEndPoint(IPAddress.Parse(hostName), port));
         }
 
         private TcpClient GetNewTcpSocket(SocketSettings settings)
@@ -122,7 +117,6 @@ namespace ImmGate.Base.Network.Tlv
                 tcpClient.Close();
             tcpClient = null;
             DoOnDisconnected();
-
         }
 
         protected void SendTlvPacket(byte[] packet)
@@ -137,7 +131,6 @@ namespace ImmGate.Base.Network.Tlv
             }
             catch (Exception)
             {
-
                 Close();
                 throw;
             }
@@ -146,17 +139,13 @@ namespace ImmGate.Base.Network.Tlv
 
         public void ProcessReceive()
         {
-
-
             var headerBytes = ReadComplete(NetworkTypeLengthHeader.Size);
             var header = headerBytes.ToStructure<NetworkTypeLengthHeader>();
 
 
-
-
-            if (header.MessageSize > 0 && header.MessageSize <= MaxPacketSize && header.Marker == NetworkTypeLengthHeader.ValidHeaderMarker)
+            if (header.MessageSize > 0 && header.MessageSize <= MaxPacketSize &&
+                header.Marker == NetworkTypeLengthHeader.ValidHeaderMarker)
             {
-
                 var packet = new NetworkTlvPacket
                 {
                     Header = header,
@@ -170,24 +159,21 @@ namespace ImmGate.Base.Network.Tlv
                 Close();
                 throw exception;
             }
-
         }
 
 
         protected BaseTlvClient(Socket socket, SocketSettings settings)
         {
-            tcpClient = new TcpClient { Client = socket };
+            tcpClient = new TcpClient {Client = socket};
             socket.SetupSocketTimeouts(settings);
         }
 
         protected BaseTlvClient(Socket socket) : this(socket, SocketSettings.DefaultHigh)
         {
-
         }
 
         protected BaseTlvClient()
         {
-
         }
 
         protected abstract void OnTlvPacketReceived(NetworkTlvPacket packet);
