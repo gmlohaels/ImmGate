@@ -73,6 +73,8 @@ namespace ImmGate.Base.Extensions
             }
         }
 
+
+
         public static T Next<T>(this T src) where T : struct
         {
             if (!typeof(T).IsEnum) throw new ArgumentException($"Argument {typeof(T).FullName} is not an Enum");

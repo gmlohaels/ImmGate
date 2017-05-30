@@ -47,11 +47,6 @@ namespace ImmGate.Base.Expressions
             return i;
         }
 
-        void Zu()
-        {
-            var t = new IntExpression<object>(null);
-            var zz = t + 10;
 
-        }
     }
 }
